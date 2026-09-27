@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CricketStreamHub - Live Cricket</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #0b1020;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #111a2e;
+      padding: 18px;
+      text-align: center;
+      border-bottom: 2px solid #16c784;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #16c784;
+      font-size: 25px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 25px auto;
+      padding: 15px;
+    }
+
+    .match {
+      background: #111a2e;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .match h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .player {
+      background: #000;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border-radius: 10px;
+      color: #aaa;
+      padding: 15px;
+    }
+
+    .telegram-btn {
+      display: block;
+      width: 100%;
+      margin-top: 15px;
+      padding: 14px;
+      background: #229ED9;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000b;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: #172238;
+      padding: 25px;
+      border-radius: 14px;
+      text-align: center;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .join-btn {
+      display: block;
+      background: #229ED9;
+      padding: 12px;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    .close-btn {
+      background: #303b50;
+      color: white;
+      border: 0;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🏏 CricketStreamHub</h1>
+    <p>Cricket • Live Updates • Match Centre</p>
+  </header>
+
+  <main class="container">
+
+    <section class="match">
+      <h2>India vs Australia</h2>
+
+      <div class="player">
+        <p>
+          Match video player<br><br>
+          Add your authorized video embed here
+        </p>
+      </div>
+
+      <button class="telegram-btn" onclick="openTelegram()">
+        ✈ Join Telegram for Match Updates
+      </button>
+    </section>
+
+  </main>
+
+  <div class="modal" id="telegramModal">
+    <div class="modal-box">
+      <h2>🏏 CricketStreamHub</h2>
+      <p>Join our Telegram channel for match updates!</p>
+
+      <a class="join-btn"
+         href="https://t.me/YourChannel"
+         target="_blank"
+         rel="noopener">
+        Join Telegram
+      </a>
+
+      <button class="close-btn" onclick="closeTelegram()">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 CricketStreamHub
+  </footer>
+
+  <script>
+    function openTelegram() {
+      document.getElementById("telegramModal")
+        .style.display = "flex";
+    }
+
+    function closeTelegram() {
+      document.getElementById("telegramModal")
+        .style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
