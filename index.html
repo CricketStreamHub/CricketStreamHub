@@ -36,10 +36,8 @@
                 console.error('Error code', event.detail);
             });
 
-            // Jo link aapne bheja tha, uska MPD manifest URL yahan aayega
-            // Note: Official DRM streams bina active keys/cookies ke browser me direct nahi chalengi, 
-            // yeh sirf player structure ko samajhne ke liye hai.
-            const manifestUri = 'YAHAN_APNA_MPD_YA_M3U8_LINK_DALTE_HAI';
+            // Public test stream link
+            const manifestUri = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
 
             try {
                 await player.load(manifestUri);
