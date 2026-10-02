@@ -3,48 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Test Player (Educational)</title>
-    <!-- Shaka Player CDN -->
+    <title>Live Cricket Stream Player</title>
+    <!-- Shaka Player compiled library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
     <style>
-        body { background-color: #121212; color: white; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        video { width: 80%; max-width: 800px; border-radius: 8px; margin-top: 20px; background: black; }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .video-container {
+            width: 90%;
+            max-width: 900px;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
     </style>
 </head>
 <body>
 
-    <h2>Local Stream Test Player</h2>
-    <p>Yeh sirf learning aur testing ke liye hai.</p>
-
-    <!-- Video Element -->
-    <video id="videoPlayer" controls autoplay></video>
+    <h1>Live Stream (Educational Purpose)</h1>
+    <div class="video-container">
+        <video id="video" controls autoplay></video>
+    </div>
 
     <script>
+        // Aapka FanCode ka live HLS manifest link
+        const manifestUri = 'https://in-mc-flive.fancode.com/mumbai/4250073_english_hls_6ed11a9fec21862_1ta-di_h264/1080p.m3u8?hdntl=Expires=1791036458~_GO=Generated~acl=/mumbai/4250073_english_hls_6ed11a9fec21862_1ta-di_h264/*~Signature=ARxeIm9I2KO6lukGDKmENjM5EJfIXk_tbQqu2AgtVNsNJY2RlKEs6WliNYeVVJLOE_bNPfeLSaBbkBTMYsNMnL0czVIF';
+
         async function initApp() {
-            // Correct polyfill function
+            // Install polyfills provided by Shaka Player
             shaka.polyfill.installAll();
-            if (!shaka.Player.isBrowserSupported()) {
+
+            // Check if the browser supports the basic APIs
+            if (shaka.Player.isBrowserSupported()) {
+                const video = document.getElementById('video');
+                const player = new shaka.Player(video);
+
+                // Listen for error events
+                player.addEventListener('error', onErrorEvent);
+
+                try {
+                    // Load the manifest into the player
+                    await player.load(manifestUri);
+                    console.log('The video has now been loaded successfully!');
+                } catch (e) {
+                    onError(e);
+                }
+            } else {
                 console.error('Browser not supported!');
-                return;
             }
+        }
 
-            const video = document.getElementById('videoPlayer');
-            const player = new shaka.Player(video);
+        function onErrorEvent(event) {
+            // Extract the shaka.util.Error object from the event
+            onError(event.detail);
+        }
 
-            // Error handling
-            player.addEventListener('error', (event) => {
-                console.error('Error code', event.detail);
-            });
-
-            // Public test stream link
-            const manifestUri = 'https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd';
-
-            try {
-                await player.load(manifestUri);
-                console.log('Video loaded successfully!');
-            } catch (e) {
-                console.error('Error loading video', e);
-            }
+        function onError(error) {
+            console.error('Error code', error.code, 'object', error);
         }
 
         document.addEventListener('DOMContentLoaded', initApp);
