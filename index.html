@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stream Test Player (Educational)</title>
-    <!-- Shaka Player CDN (DRM aur MPD files chalane ke liye) -->
+    <!-- Shaka Player CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
     <style>
         body { background-color: #121212; color: white; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
@@ -21,8 +21,8 @@
 
     <script>
         async function initApp() {
-            // Shaka Player ko load karna
-            shaka.polyfill.installData();
+            // Correct polyfill function
+            shaka.polyfill.installAll();
             if (!shaka.Player.isBrowserSupported()) {
                 console.error('Browser not supported!');
                 return;
