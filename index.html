@@ -46,9 +46,8 @@
     </div>
 
     <script>
-        // Hotstar link wrapped with CORS proxy to bypass browser restriction
-        const rawUrl = 'https://absiakjacbzuaaayilhangsonvj6f.live-cf.cdn.hotstar.com/hls/live/2027118/inallow-indvswi-2026/hin/1540080167/15mindvrm01a7a6ed57d87f4366810fe10dfd032fb311october2026/master_apmf_360_1.m3u8';
-        const manifestUri = 'https://corsproxy.io/?' + encodeURIComponent(rawUrl);
+        // Aapka live HLS manifest link
+        const manifestUri = 'https://absiakjacbzuaaayilhangsonvj6f.live-cf.cdn.hotstar.com/hls/live/2027118/inallow-indvswi-2026/hin/1540080167/15mindvrm01a7a6ed57d87f4366810fe10dfd032fb311october2026/master_apmf_360_1.m3u8';
 
         async function initApp() {
             shaka.polyfill.installAll();
@@ -56,6 +55,11 @@
             if (shaka.Player.isBrowserSupported()) {
                 const video = document.getElementById('video');
                 const player = new shaka.Player(video);
+
+                // CORS Proxy Request Filter for all player requests (Manifest & Segments)
+                shaka.net.NetworkingEngine.registerRequestFilter(function(type, request) {
+                    request.uris[0] = 'https://corsproxy.io/?' + encodeURIComponent(request.uris[0]);
+                });
 
                 player.addEventListener('error', onErrorEvent);
 
